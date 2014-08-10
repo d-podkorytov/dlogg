@@ -24,6 +24,8 @@ import std.conv;
 import std.datetime;
 import std.traits;
 
+import colorize;
+
 /**
 *   Standard implementation of IStyledLogger interface.
 *
@@ -40,10 +42,10 @@ import std.traits;
 *   -----------
 */
 alias StrictLogger = StyledStrictLogger!(LoggingLevel
-                , LoggingLevel.Debug,   "Debug: %1$s",   "[%2$s]: Debug: %1$s"
-                , LoggingLevel.Notice,  "Notice: %1$s",  "[%2$s]: Notice: %1$s"
-                , LoggingLevel.Warning, "Warning: %1$s", "[%2$s]: Warning: %1$s"
-                , LoggingLevel.Fatal,   "Fatal: %1$s",   "[%2$s]: Fatal: %1$s"
+                , LoggingLevel.Debug,   "Debug:".color(fg.light_magenta) ~ " %1$s",   "[%2$s]: Debug: %1$s"
+                , LoggingLevel.Notice,  "Notice:".color(fg.light_green) ~ " %1$s",  "[%2$s]: Notice: %1$s"
+                , LoggingLevel.Warning, "Warning:".color(fg.light_yellow) ~ " %1$s".color(fg.light_white ), "[%2$s]: Warning: %1$s"
+                , LoggingLevel.Fatal,   "Fatal:".color(fg.light_red) ~ " %1$s".color(fg.light_white ),   "[%2$s]: Fatal: %1$s"
                 , LoggingLevel.Muted,   "",              ""
                 );
 
@@ -116,7 +118,7 @@ synchronized class StyledStrictLogger(StyleEnum, US...) : IStyledLogger!StyleEnu
 	            if(level >= mMinOutputLevel)
 	            {
 	                string msg = formatConsoleOutput(message, level);
-	                writeln(msg);
+	                cwriteln(msg);
 	            }
 	            
 	            if(level >= mMinLoggingLevel)
@@ -312,7 +314,7 @@ unittest
     scope(failure) writeln("Failed!");
 
     auto logger = new shared StrictLogger("TestLog");
-    logger.minOutputLevel = LoggingLevel.Muted;
+    logger.minOutputLevel = LoggingLevel.Notice;
     logger.log("Notice msg!", LoggingLevel.Notice);
     logger.log("Warning msg!", LoggingLevel.Warning);
     logger.log("Debug msg!", LoggingLevel.Debug);
@@ -352,5 +354,6 @@ unittest
     logger.logError("some string");
     logger.logError("first string", "second string");
     
+    logger.close();
     remove(logger.name);
 }
