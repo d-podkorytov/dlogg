@@ -61,8 +61,8 @@ synchronized class StyledBufferedLogger(StyleEnum, US...) : StyledStrictLogger!(
         {
             try
             {
-	            if(minOutputLevel != LoggingLevel.Muted)
-	                writeln(msg);
+	            //if(minOutputLevel != LoggingLevel.Muted)
+	              //  writeln(msg);
 	                
 	            delayLogger.rawInput(msg);
             } catch(Throwable th)

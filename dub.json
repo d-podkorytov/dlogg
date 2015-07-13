@@ -7,13 +7,7 @@
 	"configurations": [
 		{
 			"name": "default"
-		},
-		{
-			"name": "colorized",
-			"versions": ["ColoredOutput"],
-			"dependencies": {
-				"colorize": ">=1.0.0"
-			}
 		}
-	]
+	],
+	"dflags-windows-x86": ["-m32mscoff"]
 }

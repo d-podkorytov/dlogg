@@ -172,8 +172,8 @@ synchronized class StyledStrictLogger(StyleEnum, US...) : IStyledLogger!StyleEnu
 	            if(level >= mMinOutputLevel)
 	            {
 	                string msg = formatConsoleOutput(message, level);
-	                version(ColoredOutput) cwriteln(msg);
-	                else writeln(msg);
+	               // version(ColoredOutput) cwriteln(msg);
+	               // else writeln(msg);
 	            }
 	            
 	            if(level >= mMinLoggingLevel)
@@ -184,8 +184,8 @@ synchronized class StyledStrictLogger(StyleEnum, US...) : IStyledLogger!StyleEnu
 	                }
 	                catch(Exception e)
 	                {
-	                    if(minOutputLevel != LoggingLevel.Muted)
-	                        writeln("Failed to write into log ", name);
+	                    //if(minOutputLevel != LoggingLevel.Muted)
+	                     //   writeln("Failed to write into log ", name);
 	                }
 	            }
             } catch(Throwable th)
@@ -278,6 +278,8 @@ synchronized class StyledStrictLogger(StyleEnum, US...) : IStyledLogger!StyleEnu
     }
     
     /// Transforms custom mode to file open mode
+    /// 
+    /// 
     private static FileMode mapMode(Mode mode)
     {
         final switch(mode)
